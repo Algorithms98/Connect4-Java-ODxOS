@@ -16,6 +16,11 @@ public class Connect4{
 		}
 	}
 
+	//prints board to the screen
+	public void displayBoard(){
+
+	}
+
 	public int findEmptyRow(int column){
 		int rownum = -1;
 		for( int i = 0; i < rows; i++){
@@ -28,12 +33,17 @@ public class Connect4{
 	}
 
 	//returns all the columns with openings
-	public int[] validColumns(char[][] board){
+	public List<Integer> validColumns(char[][] board){
 
 		List<Integer> openslots = new ArrayList<Integer>();
 
+		for(int i = 0; i < columns; i++){
+			if(board[rows - 1][i] == ' '){
+				openslots.add(i);
+			}
+		}
 
-
+		return openslots;
 	}
 
 	public void dropDisc(player, row, column){
@@ -54,32 +64,71 @@ public class Connect4{
 
 	public bool verticalCheck(char[][] board, char player){
 
-		return False;
+		for(int i = 0; i < columns; i++){
+			for(int j = 0; j < rows-3){
+				if(board[j][i] == player || board[j+1][i] == player || board[j+2][i] == player || board[j+3][i] == player){
+					return true
+				}
+			}
+		}
+
+		return false;
 
 	}
 
 	public bool horizontalCheck(char[][] board, char player){
-		return False;
+
+		for(int i =0; i < columns-3; i++){
+			for(int j = 0; j < rows; j++){
+				if(board[j][i] == player || board[j][i+1] == player || board[j][i+2] == player || board[j][i+3] == player){
+					return true;
+				}
+			}
+		}
+		return false;
 
 	}
 
 	public bool negativeDiagonals(char[][] board, char player){
-		return False;
+
+		for(int i = 0; i < columns-3; i++){
+			for(int j = 3; j < rows; j++){
+				if(board[j][i] == player || board[j-1][i+1] == player || board[j-2][i+2] == player || board[j-3][i+3] == player){
+					return true;
+				}
+			}
+		}
+		return false;
 
 	}
 
 	public bool positiveDiagonals(char[][] board, char player){
-		return False;
+
+		for(int i = 0; i < columns-3;i++){
+			for(int j = 0; j < rows-3;j++){
+				if(board[j][i] == player || board[j+1][i+1] == player || board[j+2][i+2] == player || board[j+3][i+3] == player){
+					return true;
+				}
+			}
+		}
+		return false;
 
 	}
 
 	public bool checkWinner(char[][] board, char player){
-		return False;
+		if(verticalCheck(board, player) == true || horizontalCheck(board, player) == true || negativeDiagonals(board, player) == true || positiveDiagonals(board, player) == true){
+			return true;
+		}
+		return false;
 
 	}
 
 	public bool checkTie(char[][] board, char player){
 
+		if(validColumns(board).length() == 0 && checkWinner(board, player) == false){
+			return true;
+		}
+		return false;
 	}
 
 

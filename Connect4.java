@@ -126,7 +126,7 @@ public class Connect4{
 
 	public boolean checkTie(char[][] board, char player){
 
-		if(validColumns(board).length() == 0 && checkWinner(board, player) == false){
+		if(validColumns(board).size() == 0 && checkWinner(board, player) == false){
 			return true;
 		}
 		return false;

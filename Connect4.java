@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Connect4{
 
-	private int rows = 6;
-	private int columns = 7;
+	public int rows = 6;
+	public int columns = 7;
 	char[][] board = new char[rows][columns]; 
 
 	public Connect4(){
@@ -44,10 +44,11 @@ public class Connect4{
 		}
 
 		return openslots;
-	}
+	} 
 
-	public void dropDisc(player, row, column){
+	public void dropDisc(char player, int row, int column){
 		board[row][column] = player;
+               
 	}
 
 	public char switchPlayers(char currPlayer){
@@ -62,12 +63,12 @@ public class Connect4{
 		return currPlayer;
 	}
 
-	public bool verticalCheck(char[][] board, char player){
+	public boolean verticalCheck(char[][] board, char player){
 
 		for(int i = 0; i < columns; i++){
-			for(int j = 0; j < rows-3){
+			for(int j = 0; j < rows-3; i++){
 				if(board[j][i] == player || board[j+1][i] == player || board[j+2][i] == player || board[j+3][i] == player){
-					return true
+					return true;
 				}
 			}
 		}
@@ -76,7 +77,7 @@ public class Connect4{
 
 	}
 
-	public bool horizontalCheck(char[][] board, char player){
+	public boolean horizontalCheck(char[][] board, char player){
 
 		for(int i =0; i < columns-3; i++){
 			for(int j = 0; j < rows; j++){
@@ -89,7 +90,7 @@ public class Connect4{
 
 	}
 
-	public bool negativeDiagonals(char[][] board, char player){
+	public boolean negativeDiagonals(char[][] board, char player){
 
 		for(int i = 0; i < columns-3; i++){
 			for(int j = 3; j < rows; j++){
@@ -102,7 +103,7 @@ public class Connect4{
 
 	}
 
-	public bool positiveDiagonals(char[][] board, char player){
+	public boolean positiveDiagonals(char[][] board, char player){
 
 		for(int i = 0; i < columns-3;i++){
 			for(int j = 0; j < rows-3;j++){
@@ -115,7 +116,7 @@ public class Connect4{
 
 	}
 
-	public bool checkWinner(char[][] board, char player){
+	public boolean checkWinner(char[][] board, char player){
 		if(verticalCheck(board, player) == true || horizontalCheck(board, player) == true || negativeDiagonals(board, player) == true || positiveDiagonals(board, player) == true){
 			return true;
 		}
@@ -123,7 +124,7 @@ public class Connect4{
 
 	}
 
-	public bool checkTie(char[][] board, char player){
+	public boolean checkTie(char[][] board, char player){
 
 		if(validColumns(board).length() == 0 && checkWinner(board, player) == false){
 			return true;
@@ -135,6 +136,6 @@ public class Connect4{
 
 
 	public static void main(String[] args){
-
+                
 	} 
 }

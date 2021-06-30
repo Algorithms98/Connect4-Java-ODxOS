@@ -17,8 +17,18 @@ public class Connect4{
 	}
 
 	//prints board to the screen
-	public void displayBoard(){
-
+	public void displayBoard(char[][] board){
+		System.out.println("---------------");
+		for (int row = 0; row < board.length; row++){
+			System.out.print("|");
+			for (int column = 0; column < board[0].length; column++){
+				System.out.print(board[row][column]);
+				System.out.print("|");
+			}
+			System.out.println();
+			System.out.println("---------------");
+		}
+		System.out.println();
 	}
 
 	public int findEmptyRow(int column){

@@ -1,1 +1,1 @@
-# Connect4-Python-ODxOS
+# Connect4-Java-ODxOS

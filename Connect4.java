@@ -3,18 +3,13 @@ import java.util.*;
 
 public class Connect4{
 
-	public int rows = 6;
-	public int columns = 7;
-	char[][] board = new char[rows][columns]; 
+	public static int rows = 6;
+	public static int columns = 7;
+   public static char[][] board = new char[rows][columns]; 
 
 	public Connect4(){
-
-		for(int i = 0; i < rows; i++){
-			for(int j = 0; j < columns; j++){
-				board[i][j] = ' ';
+      // what would be needed here if the constructor has no parameters?
 			}
-		}
-	}
 
 	//prints board to the screen
 	public void displayBoard(char[][] board){
@@ -146,6 +141,6 @@ public class Connect4{
 
 
 	public static void main(String[] args){
-                
-	} 
+      
+      	} 
 }

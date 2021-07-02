@@ -38,7 +38,7 @@ public class Connect4{
 	public int findEmptyRow(int column){
 		int rownum = -1;
 		for( int i = 0; i < rows; i++){
-			if(board[i][column-1] == ' '){
+			if(board[i][column-1] == '-'){
 				rownum = i;
 			}
 		}
@@ -52,7 +52,7 @@ public class Connect4{
 		List<Integer> openslots = new ArrayList<Integer>();
 
 		for(int i = 0; i < columns; i++){
-			if(board[rows - 1][i] == ' '){
+			if(board[rows - 1][i] == '-'){
 				openslots.add(i);
 			}
 		}
@@ -66,7 +66,7 @@ public class Connect4{
 			currPlayer = 'O';
 		}
 		else{
-			currPlayer = '0';
+			currPlayer = 'X';
 		}
 
 		return currPlayer;
@@ -164,9 +164,7 @@ public class Connect4{
 	}
 
 	public void playGame(){
-		System.out.println("Welcome to Connect4! Let's start playing!");
-
-		
+		System.out.println("Welcome to Connect4! Let's start playing!");	
 
 		while(gameOver == false){
 

@@ -1,16 +1,16 @@
 import java.util.Scanner;
 import java.util.*; 
+import java.io.*;
 
 public class Connect4{
 
 	public static int rows = 6;
 	public static int columns = 7;
    public static char[][] board = new char[rows][columns]; 
-   char currPlayer = 'O';
+   public static char currPlayer = 'X';
    boolean gameOver;
 
 	public Connect4(){
-      // what would be needed here if the constructor has no parameters?
 		gameOver = false;
 
 		for(int i = 0; i < rows; i++){
@@ -36,9 +36,9 @@ public class Connect4{
 	}
 
 	public int findEmptyRow(int column){
-		int rownum = -1;
+		int rownum = 0;
 		for( int i = 0; i < rows; i++){
-			if(board[i][column-1] == ' '){
+			if(board[i][column-1] == '-'){
 				rownum = i;
 			}
 		}
@@ -52,7 +52,7 @@ public class Connect4{
 		List<Integer> openslots = new ArrayList<Integer>();
 
 		for(int i = 0; i < columns; i++){
-			if(board[rows - 1][i] == ' '){
+			if(board[rows - 1][i] == '-'){
 				openslots.add(i);
 			}
 		}
@@ -63,10 +63,10 @@ public class Connect4{
 	public char switchPlayers(char currPlayer){
 
 		if(currPlayer == 'X'){
-			currPlayer = 'O';
+			currPlayer = 'X';
 		}
 		else{
-			currPlayer = '0';
+			currPlayer = 'O';
 		}
 
 		return currPlayer;
@@ -75,8 +75,8 @@ public class Connect4{
 	public boolean verticalCheck(char[][] board, char player){
 
 		for(int i = 0; i < columns; i++){
-			for(int j = 0; j < rows-3; i++){
-				if(board[j][i] == player || board[j+1][i] == player || board[j+2][i] == player || board[j+3][i] == player){
+			for(int j = 0; j < rows-3; j++){
+				if(board[j][i] == player && board[j+1][i] == player && board[j+2][i] == player && board[j+3][i] == player){
 					return true;
 				}
 			}
@@ -90,7 +90,7 @@ public class Connect4{
 
 		for(int i =0; i < columns-3; i++){
 			for(int j = 0; j < rows; j++){
-				if(board[j][i] == player || board[j][i+1] == player || board[j][i+2] == player || board[j][i+3] == player){
+				if(board[j][i] == player && board[j][i+1] == player && board[j][i+2] == player && board[j][i+3] == player){
 					return true;
 				}
 			}
@@ -103,7 +103,7 @@ public class Connect4{
 
 		for(int i = 0; i < columns-3; i++){
 			for(int j = 3; j < rows; j++){
-				if(board[j][i] == player || board[j-1][i+1] == player || board[j-2][i+2] == player || board[j-3][i+3] == player){
+				if(board[j][i] == player && board[j-1][i+1] == player && board[j-2][i+2] == player && board[j-3][i+3] == player){
 					return true;
 				}
 			}
@@ -116,7 +116,7 @@ public class Connect4{
 
 		for(int i = 0; i < columns-3;i++){
 			for(int j = 0; j < rows-3;j++){
-				if(board[j][i] == player || board[j+1][i+1] == player || board[j+2][i+2] == player || board[j+3][i+3] == player){
+				if(board[j][i] == player && board[j+1][i+1] == player && board[j+2][i+2] == player && board[j+3][j+3] == player){
 					return true;
 				}
 			}
@@ -138,26 +138,42 @@ public class Connect4{
 
 	public boolean checkTie(char[][] board, char player){
 
-		if(validColumns(board).size() == 0 && checkWinner(board, player) == false){
+		if(validColumns(board).size() == 1 && checkWinner(board, player) == false){
 			System.out.println("It's a Tie!");
 			displayBoard(board);
 			return true;
-		}
+		} 
 		return false;
 	}
 
 	//needs proper input validation ensuring that it's an integer between, 1 and 7
 	public int takeInput(){
 		Scanner columname = new Scanner(System.in); 
-
-		System.out.print("Enter the column number for your disc: ");
-		int num = columname.nextInt(); 
-
-		columname.close();
-
-		return num;
-	}
-
+      boolean flag = true;
+      int num = 0;
+		do{
+         try{
+         System.out.print("Enter the column number for your disc: ");
+		   //int num = columname.nextInt(); 
+         num=columname.nextInt();
+         if(num == 0){
+            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
+            num = columname.nextInt();
+            flag = false;
+         }
+         flag = false;
+         }
+         catch (ArrayIndexOutOfBoundsException ex){
+            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
+            columname.nextLine();
+         
+         }
+      }
+      while (flag == true);
+      //columname.close();
+      return num;
+      }
+   // modify the board to reflect the player's play 
 	public void dropDisc(char player, int row, int column){
 		board[row][column-1] = player;
                
@@ -169,12 +185,12 @@ public class Connect4{
 		
 
 		while(gameOver == false){
-
-			char player = switchPlayers(currPlayer);
-			displayBoard();
-			int col = takeInput();
+         char player = currPlayer;
+			displayBoard(board);
+			int col = takeInput(); 
 			int userow = findEmptyRow(col);
 			dropDisc(player, userow,col );
+         player = switchPlayers(currPlayer);
 			if(checkWinner(board, player) || checkTie(board, player) ){
 				gameOver = true; 
 			}

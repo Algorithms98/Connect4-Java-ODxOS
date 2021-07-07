@@ -169,7 +169,7 @@ public class Connect4{
 		while(gameOver == false){
 
 			char player = switchPlayers(currPlayer);
-			displayBoard();
+			displayBoard(board);
 			int col = takeInput();
 			int userow = findEmptyRow(col);
 			dropDisc(player, userow,col );

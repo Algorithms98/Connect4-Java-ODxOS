@@ -181,6 +181,20 @@ public class Connect4{
 
 	public void playGame(){
 		System.out.println("Welcome to Connect4! Let's start playing!");	
+<<<<<<< HEAD
+=======
+                int col;
+		while(gameOver == false){
+			char player = currPlayer;
+			displayBoard(board);
+			col = takeInput(); 
+			int userow = findEmptyRow(col);
+			dropDisc(player, userow,col );
+			
+			if(checkWinner(board, player) || checkTie(board, player) ){
+ 				gameOver = true; 
+ 			}
+>>>>>>> ee6b220d32773648601ddaa0ffd461252a78cbb7
 
 		while(gameOver == false){
          char player = currPlayer;

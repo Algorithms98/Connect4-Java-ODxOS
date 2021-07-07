@@ -185,11 +185,15 @@ public class Connect4{
 		System.out.println("Welcome to Connect4! Let's start playing!");	
                 int col;
 		while(gameOver == false){
-                char player = currPlayer;
+			char player = currPlayer;
 			displayBoard(board);
-			 col = takeInput(); 
-                         int userow = findEmptyRow(col);
-                         dropDisc(player, userow,col );
+			col = takeInput(); 
+			int userow = findEmptyRow(col);
+			dropDisc(player, userow,col );
+			
+			if(checkWinner(board, player) || checkTie(board, player) ){
+ 				gameOver = true; 
+ 			}
 
 			 player = switchPlayers(currPlayer);
 			displayBoard(board);

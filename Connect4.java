@@ -66,7 +66,11 @@ public class Connect4{
 			currPlayer = 'X';
 		}
 		else{
+<<<<<<< HEAD
 			currPlayer = 'O';
+=======
+			currPlayer = 'X';
+>>>>>>> 4f757765c4cb259afa27376f57d42361f7e49b8b
 		}
 
 		return currPlayer;
@@ -180,14 +184,19 @@ public class Connect4{
 	}
 
 	public void playGame(){
-		System.out.println("Welcome to Connect4! Let's start playing!");
-
-		
+		System.out.println("Welcome to Connect4! Let's start playing!");	
 
 		while(gameOver == false){
+<<<<<<< HEAD
          char player = currPlayer;
 			displayBoard(board);
 			int col = takeInput(); 
+=======
+
+			char player = switchPlayers(currPlayer);
+			displayBoard(board);
+			int col = takeInput();
+>>>>>>> 4f757765c4cb259afa27376f57d42361f7e49b8b
 			int userow = findEmptyRow(col);
 			dropDisc(player, userow,col );
          player = switchPlayers(currPlayer);

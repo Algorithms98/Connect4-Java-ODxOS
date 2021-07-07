@@ -63,11 +63,11 @@ public class Connect4{
 	public char switchPlayers(char currPlayer){
 
 		if(currPlayer == 'X'){
-			currPlayer = 'X';
+			currPlayer = '0';
 		}
-		else{
-			currPlayer = 'O';
-		}
+                else{
+                    currPlayer= 'X';
+                }
 
 		return currPlayer;
 	}
@@ -156,6 +156,8 @@ public class Connect4{
          System.out.print("Enter the column number for your disc: ");
 		   //int num = columname.nextInt(); 
          num=columname.nextInt();
+         
+         
          if(num == 0){
             System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
             num = columname.nextInt();
@@ -180,21 +182,25 @@ public class Connect4{
 	}
 
 	public void playGame(){
-		System.out.println("Welcome to Connect4! Let's start playing!");
-
-		
-
+		System.out.println("Welcome to Connect4! Let's start playing!");	
+                int col;
 		while(gameOver == false){
-         char player = currPlayer;
+                char player = currPlayer;
 			displayBoard(board);
-			int col = takeInput(); 
-			int userow = findEmptyRow(col);
+			 col = takeInput(); 
+                         int userow = findEmptyRow(col);
+                         dropDisc(player, userow,col );
+
+			 player = switchPlayers(currPlayer);
+			displayBoard(board);
+			 col = takeInput();
+
+			 userow = findEmptyRow(col);
 			dropDisc(player, userow,col );
          player = switchPlayers(currPlayer);
 			if(checkWinner(board, player) || checkTie(board, player) ){
 				gameOver = true; 
 			}
-
 		}
 
 	}

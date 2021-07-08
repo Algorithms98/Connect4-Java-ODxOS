@@ -22,11 +22,15 @@ public class Connect4{
 
 	//prints board to the screen
 	public void displayBoard(char[][] board){
-		for (int row = 0; row < board.length; row++){		
+		//System.out.println("---------------");
+		for (int row = 0; row < board.length; row++){
+			//System.out.print("|");
 			for (int column = 0; column < board[0].length; column++){
 				System.out.print(board[row][column]);
+			//	System.out.print("|");
 			}
 			System.out.println();
+			//System.out.println("---------------");
 		}
 		System.out.println();
 	}
@@ -59,12 +63,11 @@ public class Connect4{
 	public char switchPlayers(char currPlayer){
 
 		if(currPlayer == 'X'){
-			currPlayer = 'O';
+			currPlayer = '0';
 		}
-		else{
-			currPlayer = 'X';
-
-		}
+                else{
+                    currPlayer= 'X';
+                }
 
 		return currPlayer;
 	}
@@ -73,8 +76,8 @@ public class Connect4{
 
 		for(int i = 0; i < columns; i++){
 			for(int j = 0; j < rows-3; j++){
-				   if(board[j][i] == player && board[j+1][i] == player && board[j+2][i] == player && board[j+3][i] == player){
-			return true;
+				if(board[j][i] == player && board[j+1][i] == player && board[j+2][i] == player && board[j+3][i] == player){
+					return true;
 				}
 			}
 		}
@@ -87,8 +90,8 @@ public class Connect4{
 
 		for(int i =0; i < columns-3; i++){
 			for(int j = 0; j < rows; j++){
-				   if(board[j][i] == player && board[j][i+1] == player && board[j][i+2] == player && board[j][i+3] == player){
-			return true;
+				if(board[j][i] == player && board[j][i+1] == player && board[j][i+2] == player && board[j][i+3] == player){
+					return true;
 				}
 			}
 		}
@@ -100,8 +103,8 @@ public class Connect4{
 
 		for(int i = 0; i < columns-3; i++){
 			for(int j = 3; j < rows; j++){
-				   if(board[j][i] == player && board[j-1][i+1] == player && board[j-2][i+2] == player && board[j-3][i+3] == player){
-			return true;
+				if(board[j][i] == player && board[j-1][i+1] == player && board[j-2][i+2] == player && board[j-3][i+3] == player){
+					return true;
 				}
 			}
 		}
@@ -113,8 +116,8 @@ public class Connect4{
 
 		for(int i = 0; i < columns-3;i++){
 			for(int j = 0; j < rows-3;j++){
-				   if(board[j][i] == player && board[j+1][i+1] == player && board[j+2][i+2] == player && board[j+3][j+3] == player){
-			return true;
+				if(board[j][i] == player && board[j+1][i+1] == player && board[j+2][i+2] == player && board[j+3][j+3] == player){
+					return true;
 				}
 			}
 		}
@@ -127,9 +130,12 @@ public class Connect4{
 			String winner = String.format("Player: %s won", player);
 			System.out.println(winner);
 			displayBoard(board);
-		return true;
-		}
-		return false;
+                        gameOver=true;
+			return true;
+		} else{
+                    gameOver=false;
+                    return false;
+                }
 
 	}
 
@@ -138,20 +144,38 @@ public class Connect4{
 		if(validColumns(board).size() == 1 && checkWinner(board, player) == false){
 			System.out.println("It's a Tie!");
 			displayBoard(board);
-		return true;
+			return true;
 		} 
 		return false;
 	}
 
-	// Prompts user to input a column number for their play
+	//needs proper input validation ensuring that it's an integer between, 1 and 7
 	public int takeInput(){
-		Scanner columnName = new Scanner(System.in); 
-      System.out.println("Enter the column number for your play:");
-      int num = columnName.nextInt();
-      if(num < 1 || num > 7){
-            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
-            num = columnName.nextInt();
+		Scanner columname = new Scanner(System.in); 
+      boolean flag = true;
+      int num = 0;
+		do{
+         try{
+         System.out.print("Enter the column number for your disc: ");
+		   //int num = columname.nextInt(); 
+         num=columname.nextInt();
+         
+         
+         if(num == 0){
+            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
+            num = columname.nextInt();
+            flag = false;
          }
+         flag = false;
+         }
+         catch (ArrayIndexOutOfBoundsException ex){
+            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
+            columname.nextLine();
+         
+         }
+      }
+      while (flag == true);
+      //columname.close();
       return num;
       }
    // modify the board to reflect the player's play 
@@ -162,24 +186,29 @@ public class Connect4{
 
 	public void playGame(){
 		System.out.println("Welcome to Connect4! Let's start playing!");	
-      int col;
+                int col;
 		while(gameOver == false){
-			char player = currPlayer;
+                char player = currPlayer;
 			displayBoard(board);
-			col = takeInput(); 
-			int userow = findEmptyRow(col);
+			 col = takeInput(); 
+                         int userow = findEmptyRow(col);
+                         dropDisc(player, userow,col );
+
+			 player = switchPlayers(currPlayer);
+			displayBoard(board);
+			 col = takeInput();
+
+			 userow = findEmptyRow(col);
 			dropDisc(player, userow,col );
-			
+                         player = switchPlayers(currPlayer);
 			if(checkWinner(board, player) || checkTie(board, player) ){
- 				gameOver = true; 
- 			}
-            player=switchPlayers(currPlayer);
-            displayBoard(board);
-
-					}
-
+				gameOver = true; 
+			}
 		}
-  
+
+	}
+
+
 	public static void main(String[] args){
 
 		Connect4 game = new Connect4();

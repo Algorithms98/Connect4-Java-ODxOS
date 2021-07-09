@@ -7,11 +7,9 @@ public class Connect4{
 	public static int rows = 6;
 	public static int columns = 7;
    public static char[][] board = new char[rows][columns]; 
-   public static char currPlayer = 'X';
-   boolean gameOver;
-
+   char currPlayer='X';
+      
 	public Connect4(){
-		gameOver = false;
 
 		for(int i = 0; i < rows; i++){
 			for(int j = 0;j < columns; j++){
@@ -22,15 +20,11 @@ public class Connect4{
 
 	//prints board to the screen
 	public void displayBoard(char[][] board){
-		//System.out.println("---------------");
 		for (int row = 0; row < board.length; row++){
-			//System.out.print("|");
 			for (int column = 0; column < board[0].length; column++){
 				System.out.print(board[row][column]);
-			//	System.out.print("|");
 			}
 			System.out.println();
-			//System.out.println("---------------");
 		}
 		System.out.println();
 	}
@@ -45,7 +39,17 @@ public class Connect4{
 		return rownum;
 
 	}
-
+   public int countEmptySpots(char[][]board){
+   int notEmpty = 0;
+   for(int row = 0; row < board.length; row++){
+      for(int column = 0; column< board[0].length; column++){
+      if(board[row][column] == '-'){
+         notEmpty++;
+      } 
+   }
+   }
+   return notEmpty;
+   }
 	//returns all the columns with openings
 	public List<Integer> validColumns(char[][] board){
 
@@ -62,12 +66,12 @@ public class Connect4{
 
 	public char switchPlayers(char currPlayer){
 
-		if(currPlayer == 'X'){
+		if(currPlayer =='X'){
 			currPlayer = '0';
 		}
-                else{
-                    currPlayer= 'X';
-                }
+     else{ 
+         currPlayer = 'X';
+      }
 
 		return currPlayer;
 	}
@@ -130,18 +134,15 @@ public class Connect4{
 			String winner = String.format("Player: %s won", player);
 			System.out.println(winner);
 			displayBoard(board);
-                        gameOver=true;
 			return true;
-		} else{
-                    gameOver=false;
-                    return false;
-                }
+		} 
+      return false;
+   }
 
-	}
 
 	public boolean checkTie(char[][] board, char player){
 
-		if(validColumns(board).size() == 1 && checkWinner(board, player) == false){
+		if(countEmptySpots(board) == 0 && checkWinner(board, player) == false){
 			System.out.println("It's a Tie!");
 			displayBoard(board);
 			return true;
@@ -151,31 +152,13 @@ public class Connect4{
 
 	//needs proper input validation ensuring that it's an integer between, 1 and 7
 	public int takeInput(){
-		Scanner columname = new Scanner(System.in); 
-      boolean flag = true;
-      int num = 0;
-		do{
-         try{
-         System.out.print("Enter the column number for your disc: ");
-		   //int num = columname.nextInt(); 
-         num=columname.nextInt();
-         
-         
-         if(num == 0){
-            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
-            num = columname.nextInt();
-            flag = false;
-         }
-         flag = false;
-         }
-         catch (ArrayIndexOutOfBoundsException ex){
-            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7");
-            columname.nextLine();
-         
-         }
-      }
-      while (flag == true);
-      //columname.close();
+		Scanner columnName = new Scanner(System.in); 
+      System.out.println("Enter the column number for your play:");
+      int num = columnName.nextInt();
+      if(num < 1 || num > 7){
+            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
+            num = columnName.nextInt();      
+            }
       return num;
       }
    // modify the board to reflect the player's play 
@@ -183,31 +166,17 @@ public class Connect4{
 		board[row][column-1] = player;
                
 	}
-
-	public void playGame(){
+   	public void playGame(){
 		System.out.println("Welcome to Connect4! Let's start playing!");	
-                int col;
-		while(gameOver == false){
-                char player = currPlayer;
-			displayBoard(board);
+      int col;
+		while(checkWinner(board, currPlayer) == false && checkTie(board, currPlayer) == false){
+         displayBoard(board);
 			 col = takeInput(); 
-                         int userow = findEmptyRow(col);
-                         dropDisc(player, userow,col );
-
-			 player = switchPlayers(currPlayer);
-			displayBoard(board);
-			 col = takeInput();
-
-			 userow = findEmptyRow(col);
-			dropDisc(player, userow,col );
-                         player = switchPlayers(currPlayer);
-			if(checkWinner(board, player) || checkTie(board, player) ){
-				gameOver = true; 
-			}
-		}
-
+          int userow = findEmptyRow(col);
+          dropDisc(currPlayer, userow,col ); 
+          currPlayer = switchPlayers(currPlayer); 
+					}
 	}
-
 
 	public static void main(String[] args){
 

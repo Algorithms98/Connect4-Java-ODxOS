@@ -169,11 +169,19 @@ public class Connect4{
    	public void playGame(){
 		System.out.println("Welcome to Connect4! Let's start playing!");	
 		while(checkWinner(board, currPlayer) == false && checkTie(board, currPlayer) == false){
+<<<<<<< HEAD
          displayBoard(board);
 			 int col = takeInput(); 
           int userow = findEmptyRow(col);
           dropDisc(currPlayer, userow,col ); 
           currPlayer = switchPlayers(currPlayer); 
+=======
+			displayBoard(board);
+			columns = takeInput(); 
+			int userow = findEmptyRow(columns);
+			dropDisc(currPlayer, userow,columns);
+			currPlayer = switchPlayers(currPlayer); 
+>>>>>>> 74185f17e7b8e2ec3cf967e8c7aee7da185581ea
 					}
 	}
 

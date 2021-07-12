@@ -156,10 +156,11 @@ public class Connect4{
 		Scanner columnName = new Scanner(System.in); 
       System.out.println("Enter the column number for your play:");
       int num = columnName.nextInt();
-      if(num < 1 || num > 7){
-            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
-            num = columnName.nextInt();      
-            }
+    
+        while(num < 1 || num > 7){
+        	System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
+            num = columnName.nextInt();  
+        }
       return num;
       }
    // modify the board to reflect the player's play 

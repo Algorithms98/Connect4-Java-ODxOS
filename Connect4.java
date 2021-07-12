@@ -7,6 +7,7 @@ public class Connect4{
 	public static int rows = 6;
 	public static int columns = 7;
    public static char[][] board = new char[rows][columns]; 
+   public static boolean gameOver = false; 
    char currPlayer='X';
       
 	public Connect4(){
@@ -155,10 +156,11 @@ public class Connect4{
 		Scanner columnName = new Scanner(System.in); 
       System.out.println("Enter the column number for your play:");
       int num = columnName.nextInt();
-      if(num < 1 || num > 7){
-            System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
-            num = columnName.nextInt();      
-            }
+    
+        while(num < 1 || num > 7){
+        	System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
+            num = columnName.nextInt();  
+        }
       return num;
       }
    // Modifies the board to reflect the player's play 
@@ -168,6 +170,7 @@ public class Connect4{
 	}
    	public void playGame(){
 		System.out.println("Welcome to Connect4! Let's start playing!");	
+<<<<<<< HEAD
 		while(checkWinner(board, currPlayer) == false && checkTie(board, currPlayer) == false){
 <<<<<<< HEAD
          displayBoard(board);
@@ -176,10 +179,16 @@ public class Connect4{
           dropDisc(currPlayer, userow,col ); 
           currPlayer = switchPlayers(currPlayer); 
 =======
+=======
+		while(gameOver == false){
+>>>>>>> 86eb9eee56c96d11b34f73c76efe89d0f959e535
 			displayBoard(board);
 			columns = takeInput(); 
 			int userow = findEmptyRow(columns);
 			dropDisc(currPlayer, userow,columns);
+			if(checkWinner(board, currPlayer) == true || checkTie(board, currPlayer) == true){
+				gameOver = true;
+			}
 			currPlayer = switchPlayers(currPlayer); 
 >>>>>>> 74185f17e7b8e2ec3cf967e8c7aee7da185581ea
 					}

@@ -7,6 +7,7 @@ public class Connect4{
 	public static int rows = 6;
 	public static int columns = 7;
    public static char[][] board = new char[rows][columns]; 
+   public static boolean gameOver = false; 
    char currPlayer='X';
       
 	public Connect4(){
@@ -168,11 +169,14 @@ public class Connect4{
 	}
    	public void playGame(){
 		System.out.println("Welcome to Connect4! Let's start playing!");	
-		while(checkWinner(board, currPlayer) == false && checkTie(board, currPlayer) == false){
+		while(gameOver == false){
 			displayBoard(board);
 			columns = takeInput(); 
 			int userow = findEmptyRow(columns);
 			dropDisc(currPlayer, userow,columns);
+			if(checkWinner(board, currPlayer) == true || checkTie(board, currPlayer) == true){
+				gameOver = true;
+			}
 			currPlayer = switchPlayers(currPlayer); 
 					}
 	}

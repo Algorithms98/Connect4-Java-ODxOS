@@ -16,7 +16,9 @@ public class Connect4{
    System.out.println("X                   Let's Play Connect 4!                 X");
    System.out.println("X-O-X-O-X-X-O-X-X-O-O-X-O-O-X-X-O-X-O-X-O-X-O-X-X-O-X-X-O-X");
 
-   //Constructor, displays a board of dashes.
+   //Constructor, displays a board of dashes.	
+	//Creating the game environment.
+	//Constructor, displays a board of dashes.
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < columns; j++){
 				board[i][j] = '-';
@@ -40,6 +42,7 @@ public class Connect4{
       System.out.println("* After the player selects their column, their play will \nbe placed in the \nnext available row in the column.");
       System.out.println("* Whoever makes a Connect 4 first wins and the game ends."); 
    }
+		
 	//Prints board to the console. 
 	public void displayBoard(char[][] board){
 		for (int row = 0; row < board.length; row++){
@@ -51,9 +54,7 @@ public class Connect4{
 		System.out.println();
 	}
 
-
 	//Finds the lowest empty row to place the play. 
-
 	public int findEmptyRow(int column){
 		int rownum = 0;
 		for(int i = 0; i < rows; i++){
@@ -62,7 +63,6 @@ public class Connect4{
 			}
 		}
 		return rownum;
-
 	}
 
    //Counts the number of empty spots in the board. If there is no more empty spots, that means its a tie. 
@@ -77,38 +77,21 @@ public class Connect4{
    }
    return emptySpot;
    }
-	
-   //Returns all the columns with openings.
-/*	public List<Integer> validColumns(char[][] board){
-
-		List<Integer> openslots = new ArrayList<Integer>();
-
-		for(int i = 0; i < columns; i++){
-			if(board[rows - 1][i] == '-'){
-				openslots.add(i);
-			}
-		}
-
-		return openslots;
-	} */
-
 
 	//Switches the players after each turn. 
 	public char switchPlayers(char currPlayer){
-
 		if(currPlayer =='X'){
 			currPlayer = '0';
 		}
-     else{ 
-         currPlayer = 'X';
-      }
-
+		else{ 
+			currPlayer = 'X';
+		}
 		return currPlayer;
 	}
 
-   // Checks to see if someone has a connect four in the vertical direction.
-		public boolean verticalCheck(char[][] board, char player){
-
+	
+	// Checks to see if someone has a connect four in the vertical direction.
+	public boolean verticalCheck(char[][] board, char player){
 		for(int i = 0; i < board.length-3; i++){
 			for(int j = 0; j < board[0].length; j++){
 				if(board[i][j] == player && board[i+1][j] == player && board[i+2][j] == player && board[i+3][j] == player){
@@ -116,14 +99,13 @@ public class Connect4{
 				}
 			}
 		}
-
 		return false;
-
 	}
 
-   // Checks to see if someone has a connect four in the horizontal direction.
-	public boolean horizontalCheck(char[][] board, char player){
 
+   	
+	// Checks to see if someone has a connect four in the horizontal direction.
+	public boolean horizontalCheck(char[][] board, char player){
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board[0].length-3; j++){
 				if(board[i][j] == player && board[i][j+1] == player && board[i][j+2] == player && board[i][j+3] == player){
@@ -132,12 +114,9 @@ public class Connect4{
 			}
 		}
 		return false;
-
 	}
-   
-   // Checks to see if there is a connect four diagonally, in a negative slope. 
+	// Checks to see if there is a connect four diagonally, in a negative slope. 
 	public boolean negativeDiagonals(char[][] board, char player){
-
 		for(int i = 3; i < board.length; i++){
 			for(int j = 0; j < board[0].length-3; j++){
 				if(board[i][j] == player && board[i-1][j+1] == player && board[i-2][j+2] == player && board[i-3][j+3] == player){
@@ -146,12 +125,10 @@ public class Connect4{
 			}
 		}
 		return false;
-
 	}
-
-   //Checks to see if there is a connect four diagonally, in a positive slope. 
+	
+	//Checks to see if there is a connect four diagonally, in a positive slope. 
 	public boolean positiveDiagonals(char[][] board, char player){
-
 		for(int i = 0; i < board.length-3; i++){
 			for(int j = 0; j < board[0].length-3; j++){
 				if(board[i][j] == player && board[i+1][j+1] == player && board[i+2][j+2] == player && board[i+3][j+3] == player){
@@ -160,10 +137,9 @@ public class Connect4{
 			}
 		}
 		return false;
-
 	}
-
-   // Checks to see if someone had a row of four either vertically, horizontially, or diagonally. 
+	
+	//Checks to see if someone had a row of four either vertically, horizontally, or diagonally. 
 	public boolean checkWinner(char[][] board, char player){
 		if(verticalCheck(board, player) == true || horizontalCheck(board, player) == true || negativeDiagonals(board, player) == true || positiveDiagonals(board, player) == true){
 			String winner = String.format("Player: %s won", player);
@@ -173,9 +149,8 @@ public class Connect4{
 		} 
       return false;
    }
-
-
-   //Determines if the board is full and there is no winner. If so, then its a tie.
+	
+	//Determines if the board is full and there is no winner. If so, then its a tie.
 	public boolean checkTie(char[][] board, char player){
 
 		if(countEmptySpots(board) == 0 && checkWinner(board, player) == false){
@@ -191,23 +166,24 @@ public class Connect4{
 		Scanner columnName = new Scanner(System.in); 
       System.out.println("Enter the column number for your play:");
       int num = columnName.nextInt();
-    
+       // Modifies the board to reflect the player's play. 
         while(num < 1 || num > 7){
         	System.out.println("The column number is out of bounds. Please enter a new column number between 1-7"); // If the number is out of bounds, prompts user again for another number.
             num = columnName.nextInt();  
         }
       return num;
       }
-
-   // Modifies the board to reflect the player's play. 
+	
+	// Modifies the board to reflect the player's play. 
 	public void dropDisc(char player, int row, int column){
 		board[row][column-1] = player;
                
 	}
-      // This method runs the game.
+	
+	// This method runs the game.
    	public void playGame(){
-		System.out.println("Welcome to Connect4! Let's start playing!");	
-		while(gameOver == false){ 
+		System.out.println("Welcome to Connect4! Let's start playing!");
+		while(gameOver == false) {	
 			displayBoard(board); // Displays board
 			columns = takeInput(); //Takes in the user's input
 			int userow = findEmptyRow(columns); // Searches within a column the next empty row.
@@ -227,6 +203,7 @@ public class Connect4{
       Scanner option = new Scanner(System.in);
       int chosenOption = 0;
       while(chosenOption != 1 || chosenOption !=2){
+      System.out.println();
       System.out.print("Select an Option by Typing the Number Associated with Your \nSelection:");
       System.out.println();
       System.out.println("1 Instructions");
@@ -245,3 +222,5 @@ public class Connect4{
 		//Connect4 game = new Connect4(); // Creates the object.
 		//game.playGame(); // Calls the method that runs the game.
       } 
+		
+	

@@ -6,9 +6,9 @@ public class Connect4{
 
 	public static int rows = 6;
 	public static int columns = 7;
-   	public static char[][] board = new char[rows][columns]; 
-       boolean gameOver = false; 
-   	char currPlayer='X'; // 'X' is the first to play.
+   public static char[][] board = new char[rows][columns]; 
+   boolean gameOver = false; 
+   char currPlayer='X'; // 'X' is the first to play.
       
     //Creating the game environment. 
 	public Connect4(){
@@ -79,7 +79,7 @@ public class Connect4{
    }
 	
    //Returns all the columns with openings.
-	public List<Integer> validColumns(char[][] board){
+/*	public List<Integer> validColumns(char[][] board){
 
 		List<Integer> openslots = new ArrayList<Integer>();
 
@@ -90,7 +90,7 @@ public class Connect4{
 		}
 
 		return openslots;
-	} 
+	} */
 
 
 	//Switches the players after each turn. 

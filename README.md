@@ -1,6 +1,6 @@
 # Connect4-Java-ODxOS
 ## About
-This was the first project for Open Doors x Open Source, a program to help black CS students be successful in tech roles. We had two other games we could have created (Bingo or Battleship). Our group decided to go with Connect Four.
+This was the first project for Open Doors x Open Source (OD x OS), a program to help black CS students be successful in tech roles. We had two other games we could have created (Bingo or Battleship). Our group decided to go with Connect Four.
 
 ## Rules of the Game
 Connect Four is a two player game where the first player who is able to get a match of four either vertically, horizontally, or diagonally wins the game. The two players alternate turns. You place your play in the board by dropping your disc. The board is a 6 rows, 7 columns. The discs normally come in red and yellow. 
